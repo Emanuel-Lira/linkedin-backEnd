@@ -1,12 +1,12 @@
-# LinkedIn Clone - Backend (Projeto Académico)
+# LinkedIn Clone - Backend (Projeto Academico)
 
 Este repositório contém o backend de uma aplicação estilo LinkedIn, desenvolvido como um projeto para demonstrar competências em arquitetura de microserviços, integração de bancos de dados relacionais e não relacionais, e segurança de APIs.
 
 ## 🚀 Visão Geral da Arquitetura
 
-O projeto foi construído seguindo uma **arquitetura de microserviços**, dividindo as responsabilidades em dois serviços RESTful independentes que se comunicam via HTTP. Esta abordagem utiliza **persistência poliglota**, escolhendo o banco de dados mais adequado para cada tipo de tarefa.
+O projeto foi construído seguindo uma **arquitetura de microserviços**, dividindo as responsabilidades em dois serviços RESTful independentes que se comunicam via HTTP. 
 
-### 1. `core-service` (Java + Spring Boot + MySQL)
+### 1. `linkedin` (Java + Spring Boot + MySQL)
 O coração transacional da aplicação. Responsável por gerir todos os dados principais e a segurança.
 - **Banco de Dados:** MySQL
 - **Funcionalidades:** Gestão de Utilizadores, Empresas, Vagas, Posts, Comentários, Mensagens Privadas e Autenticação.
@@ -17,7 +17,7 @@ O cérebro social da rede, focado em modelar, criar e consultar os relacionament
 - **Funcionalidades:** Criação de nós de Utilizadores e Empresas, e modelagem de relacionamentos como `CONNECTED_TO` (conexões entre utilizadores), `FOLLOWS` (seguir empresas) e `WORKED_AT`.
 
 ### Bônus: Performance com Cache
-- **Redis:** O `core-service` foi aprimorado com Redis para implementar uma camada de cache, melhorando drasticamente a performance de leituras frequentes e reduzindo a carga no banco de dados MySQL.
+- **Redis:** O `linkedin` foi aprimorado com Redis para implementar uma camada de cache, melhorando drasticamente a performance de leituras frequentes e reduzindo a carga no banco de dados MySQL.
 
 ## ✨ Tecnologias e Conceitos Implementados
 
@@ -41,9 +41,9 @@ O cérebro social da rede, focado em modelar, criar e consultar os relacionament
 
 ## 📋 Funcionalidades Implementadas
 
-### No `core-service`:
+### No `linkedin`:
 - [✔] Sistema completo de **Registo e Login** com JWT.
-- [✔] CRUD completo e seguro para **Utilizadores, Posts, Comentários, Empresas, Vagas e Mensagens Privadas**.
+- [✔] CRUD completo para **Utilizadores, Posts, Comentários, Empresas, Vagas e Mensagens Privadas**.
 - [✔] Regras de negócio, como permissões (ex: apenas o dono pode apagar o seu post).
 - [✔] Comunicação síncrona com o `people-graph-service` para notificar a criação de novos utilizadores e empresas.
 
@@ -65,8 +65,8 @@ O cérebro social da rede, focado em modelar, criar e consultar os relacionament
 
 1.  **Clonar o Repositório:**
     ```bash
-    git clone [https://github.com/seu-usuario/linkedin-clone-backend.git](https://github.com/seu-usuario/linkedin-clone-backend.git)
-    cd linkedin-clone-backend
+    git clone [https://github.com/Emanuel-Lira/linkedin-backEnd.git](https://github.com/Emanuel-Lira/linkedin-backEnd.git)
+    cd linkedin-backend
     ```
 
 2.  **Subir os Bancos de Dados com Docker:**
@@ -79,17 +79,17 @@ O cérebro social da rede, focado em modelar, criar e consultar os relacionament
     docker run --detach --name linkedin-redis -p 6379:6379 redis:latest
     ```
 
-3.  **Configurar o `core-service`:**
+3.  **Configurar o `linkedin`:**
     - Crie um banco de dados no seu MySQL chamado `linkedin_core_db`.
-    - Navegue até a pasta `core-service/src/main/resources/`.
+    - Navegue até a pasta `linkedin/src/main/resources/`.
     - Abra o ficheiro `application.properties` e ajuste as credenciais do seu MySQL (`spring.datasource.password`).
 
 4.  **Executar as Aplicações:**
     Abra **dois terminais separados**.
 
-    - **No primeiro terminal (para o `core-service`):**
+    - **No primeiro terminal (para o `linkedin`):**
       ```bash
-      cd core-service
+      cd linkedin
       mvn spring-boot:run
       ```
     - **No segundo terminal (para o `people-graph-service`):**
@@ -98,7 +98,7 @@ O cérebro social da rede, focado em modelar, criar e consultar os relacionament
       mvn spring-boot:run
       ```
 
-    Ao final, o `core-service` estará a rodar na porta `8080` e o `people-graph-service` na porta `8081`.
+    Ao final, o `linkedin` estará a rodar na porta `8080` e o `people-graph-service` na porta `8081`.
 
 5.  **Testar com a Coleção Postman:**
     - Importe a coleção Postman (incluída neste repositório) para o seu Postman.
